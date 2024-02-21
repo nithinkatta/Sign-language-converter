@@ -18,7 +18,7 @@ The project uses Python, MediaPipe, OpenCV, and Gemini AI to develop a real-time
  
   
 
-#### 🔸 Play with the Live Demo → [**Here**](https://atm-playground.netlify.app) ✨
+#### 🔸 Demo Video → [**Here**]([https://atm-playground.netlify.app](https://www.youtube.com/watch?v=Ul29OHtsRBs)) ✨
 |
 |
 |
