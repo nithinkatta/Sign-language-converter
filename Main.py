@@ -167,7 +167,7 @@ def main():
                     # obj = gTTS(text=cur, lang='en', slow=False)
                     # obj.save("super.mp3")
                     if prev != cur:
-                        playsound("super.mp3")
+                        playsound("Audio/super.mp3")
                         arr.append(cur)
                     prev = cur
                     cv2.circle(img, (lineInfo[4], lineInfo[5]),
@@ -185,7 +185,7 @@ def main():
                 # obj.save("fine.mp3")
                 if prev != cur:
                     arr.append(cur)
-                    playsound("fine.mp3")
+                    playsound("Audio/fine.mp3")
                 # time.sleep(2)
                 # cv2.putText(img, str("I am fine"), (45, 65), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 5 )
                 prev = cur
@@ -196,7 +196,7 @@ def main():
                 # obj.save("are.mp3")
                 if prev != cur:
                     arr.append(cur)
-                    playsound("are.mp3")
+                    playsound("Audio/are.mp3")
                 # cv2.putText(img, str("Lets play"), (45, 65), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 5 )
                 prev = cur
 
@@ -206,7 +206,7 @@ def main():
                 # obj.save("how.mp3")
                 if prev != cur:
                     arr.append(cur)
-                    playsound("how.mp3")
+                    playsound("Audio/how.mp3")
                 prev = cur
                 # cv2.putText(img, str("Yes"), (45, 65), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 5 )
 
@@ -217,7 +217,7 @@ def main():
                 # obj.save("call.mp3")
                 if prev != cur:
                     arr.append(cur)
-                    playsound("call.mp3")
+                    playsound("Audio/call.mp3")
                 # time.sleep(2)
                 # cv2.putText(img, str("Call"), (45, 65), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 0, 0), 5 )
                 prev = cur
@@ -247,7 +247,7 @@ def main():
                 # obj.save("you.mp3")
                 if prev != cur:
                     arr.append(cur)
-                    playsound("you.mp3")
+                    playsound("Audio/you.mp3")
                 prev = cur
             
 
