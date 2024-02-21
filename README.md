@@ -27,11 +27,10 @@ The project uses Python, MediaPipe, OpenCV, and Gemini AI to develop a real-time
     
 
 
-- **Teachable Machine** :Used in modelling the dataset.
-   <center><img src="VirtualConnect%208b1efe88061b4234946400cc0b8beed5/VirtualConnect_c5ea835e103249a3a7bf94e229d80a04Untitled_4.png" alt="f" margin="100000000px" width="200"/></center>
+- **Teachable Machine** : Used in modeling the dataset.
 
-
-
+  <center><img src="VirtualConnect%208b1efe88061b4234946400cc0b8beed5/VirtualConnect_c5ea835e103249a3a7bf94e229d80a04Untitled_4.png" alt="f" margin="100000000px" width="200"/></center>
+  
 <h1> Normal Scenario<h1/>
   <center><img src="VirtualConnect%208b1efe88061b4234946400cc0b8beed5/VirtualConnect_c5ea835e103249a3a7bf94e229d80a04Untitled_5.png" alt="f" margin="100000000px" width="500"/></center>
 
@@ -45,4 +44,4 @@ Helps in easy conversion
 # Project working flowchart
 
 ![Untitled](VirtualConnect%208b1efe88061b4234946400cc0b8beed5/Untitled%201.png)
-</ul>
+
