@@ -16,25 +16,26 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 model = genai.GenerativeModel('gemini-pro')
 
-
 cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=1)
 # loaded_model = tf.keras.models.load_model('model.h5')
-classifier = Classifier("Model/Model_1/keras_model.h5", "Model/Model_1/labels.txt")
+classifier = Classifier("Model/Model_3/keras_model.h5", "Model/Model_3/labels.txt")
 offset = 20
 imgSize = 256
 counter = 0
 
-labels = ["Hello", "I am fine", "No", "How", "Please", "Thank you", "Yes"]
-
+# labels = ["Hello", "I am fine", "No", "How", "Please", "Thank you", "Yes"]
+labels = ["Hello","How", "Iamfine","You","","Hold"]
 # Stores the update gestures
 Input = []
 s = ""
 flag = True
 while True:
     success, img = cap.read()
+    # img = cv2.flip(img,1)
+    # img = cv2.GaussianBlur(img, (15, 15), 0)
     imgOutput = img.copy()
-    hands, img = detector.findHands(img)
+    hands, img = detector.findHands(img,False)
     if hands:
         flag = True
 
@@ -47,6 +48,11 @@ while True:
         imgCropShape = imgCrop.shape
 
         aspectRatio = h / w
+
+        # prediction, index = classifier.getPrediction(imgCrop, draw=False)
+        # print(prediction, index)
+
+
 
         # Inside the loop where you resize the cropped image
         if aspectRatio > 1:
@@ -85,15 +91,18 @@ while True:
         cv2.putText(imgOutput, labels[index], (x, y - 30), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 0, 0), 2)
         cv2.rectangle(imgOutput, (x - offset, y - offset), (x + w + offset, y + h + offset), (0, 255, 0), 4)
 
-        # cv2.imshow('ImageCrop', imgCrop)
-        # cv2.imshow('ImageWhite', imgWhite)
+        cv2.imshow('ImageCrop', imgCrop)
+        cv2.imshow('ImageWhite', imgWhite)
     else:
         if Input!=[]:
 
             if flag:
                 s = ""
+
                 for i in set(Input):
-                    s += i+" "
+                    if i!="Hold":
+                        s += i+" "
+
                 response = model.generate_content("correct the sentence without explanation : " + s)
                 print(response.text)
                 s = response.text
@@ -103,25 +112,19 @@ while True:
 
                 tts = gTTS(text=s, lang='en')
 
-                # Create an in-memory file-like object
+
                 audio_buffer = BytesIO()
 
-                # Write the audio content to the file-like object
                 tts.write_to_fp(audio_buffer)
 
-                # Reset the buffer position to the beginning
                 audio_buffer.seek(0)
 
-                # Initialize pygame mixer
                 pygame.mixer.init()
 
-                # Load the audio buffer into pygame mixer
                 pygame.mixer.music.load(audio_buffer)
 
-                # Play the audio
                 pygame.mixer.music.play()
 
-                # Wait for the audio to finish playing
                 while pygame.mixer.music.get_busy():
                     time.sleep(1)
 
