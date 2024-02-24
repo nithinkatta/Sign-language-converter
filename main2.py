@@ -3,12 +3,13 @@ import pygame
 import tensorflow as tf
 from cvzone.HandTrackingModule import HandDetector
 from cvzone.ClassificationModule import Classifier
-import google.generativeai as genai
+
+import google.generativeai as genai     # google ai
 import numpy as np
 import math
 from io import BytesIO
 import time
-from gtts import gTTS
+from gtts import gTTS   # google text to speech
 
 # Gemini Ai google api key (very confidential)
 GOOGLE_API_KEY = 'AIzaSyBaj3yH1P6dNttlssEt_aAptFpLed4PoKw'
@@ -30,6 +31,7 @@ labels = ["Hello","How", "Iamfine","You","","Hold"]
 Input = []
 s = ""
 flag = True
+prev = ""
 while True:
     success, img = cap.read()
     # img = cv2.flip(img,1)
@@ -51,8 +53,6 @@ while True:
 
         # prediction, index = classifier.getPrediction(imgCrop, draw=False)
         # print(prediction, index)
-
-
 
         # Inside the loop where you resize the cropped image
         if aspectRatio > 1:
@@ -102,13 +102,16 @@ while True:
                 for i in set(Input):
                     if i!="Hold":
                         s += i+" "
-
+                print(s)
+                # print(type(s)))
                 response = model.generate_content("correct the sentence without explanation : " + s)
                 print(response.text)
                 s = response.text
                 flag = False
                 # print(type(response))
-            # Input = []
+
+                Input = []
+                prev = s
 
                 tts = gTTS(text=s, lang='en')
 
@@ -128,6 +131,6 @@ while True:
                 while pygame.mixer.music.get_busy():
                     time.sleep(1)
 
-            cv2.putText(imgOutput,s,(10,30),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),2)
+        cv2.putText(imgOutput,prev,(10,30),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),2)
     cv2.imshow('Image', imgOutput)
     cv2.waitKey(1)
