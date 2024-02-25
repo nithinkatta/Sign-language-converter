@@ -5,7 +5,7 @@ from cvzone.HandTrackingModule import HandDetector
 from cvzone.ClassificationModule import Classifier
 
 import google.generativeai as genai     # google ai
-import numpy as np
+import numpy as np  
 import math
 from io import BytesIO
 import time
