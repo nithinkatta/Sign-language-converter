@@ -1,8 +1,8 @@
 
-<h1>VirtualConnect</h1>
+<h1>Sign Language Converter</h1>
 <h3>Description </h3>
 
-The project uses Python, MediaPipe, OpenCV, and Gemini AI to develop a real-time sign language-to-text and speech generation system. MediaPipe recognizes hand gestures, and OpenCV processes real-time input. Gemini AI corrects sentence formation. Together, they create a seamless communication channel between sign language and spoken language users. The dataset, likely containing annotated images or videos with diverse sign language gestures, trains the model to recognize and interpret signs accurately. Python is the primary programming language, offering flexibility and ease of integration with MediaPipe and OpenCV. This project showcases the synergy between these tools, providing an inclusive solution for bridging communication gaps.
+This project uses Python, MediaPipe, OpenCV, and Gemini AI to develop a real-time sign language-to-text and speech generation system. MediaPipe recognizes hand gestures, and OpenCV processes real-time input. Gemini AI corrects sentence formation. Together, they create a seamless communication channel between sign language and spoken language users. The dataset, likely containing annotated images or videos with diverse sign language gestures, trains the model to recognize and interpret signs accurately. Python is the primary programming language, offering flexibility and ease of integration with MediaPipe and OpenCV. This project showcases the synergy between these tools, providing an inclusive solution for bridging communication gaps.
 > **Background**:Dumb or autistic people always face difficulty in expressing their feelings as they can only communicate in sign language which is not understandable by others. Our project is an intermediate between them. 
 
 <br/> 
