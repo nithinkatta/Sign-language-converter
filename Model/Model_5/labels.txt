@@ -1,0 +1,15 @@
+0 Home
+1 No
+2 Pray
+3 Hungry
+4 Family
+5 Help
+6 Time
+7 Car
+8 Yes
+9 Hello
+10 Money
+11 Love
+12 Water
+13 Sorry
+14 I Love You

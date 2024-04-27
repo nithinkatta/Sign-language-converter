@@ -12,7 +12,7 @@ import time
 from gtts import gTTS   # google text to speech
 
 # Gemini Ai google api key (very confidential)
-GOOGLE_API_KEY = 'AIzaSyBaj3yH1P6dNttlssEt_aAptFpLed4PoKw'
+GOOGLE_API_KEY = 'AIzaSyAY-gFnDMc1lsb0YKNAORmUsGejZ13gPsU'
 genai.configure(api_key=GOOGLE_API_KEY)
 
 model = genai.GenerativeModel('gemini-pro')
