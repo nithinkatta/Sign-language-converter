@@ -10,7 +10,7 @@ from cvzone.ClassificationModule import Classifier
 import google.generativeai as genai     # google ai
 import numpy as np  
 import math
-from io import BytesIO
+from io import BytesIO 
 import time
 from gtts import gTTS 
 
@@ -19,7 +19,7 @@ from google.cloud import translate_v2 as translate
 translate_client = translate.Client()
 
 # Gemini Ai google api key (very confidential)
-GOOGLE_API_KEY = 'AIzaSyAY-gFnDMc1lsb0YKNAORmUsGejZ13gPsU'
+GOOGLE_API_KEY = 'AIzaSyA9CwtsrKKi_JfJufpTVPj3WvfT8hWDbkQ'
 genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
@@ -36,20 +36,30 @@ counter = 0
 # labels = ["Hello", "I am fine", "No", "How", "Please", "Thank you", "Yes"]
 # labels = ["Hello","How", "Iamfine","You","","Hold"]   # model 3
 # labels = ["Thank you","Argue","Hi"]  # model 4
-labels = ["Home","No","Pray","Hungry","Family","Help","Time","Car","Yes","Hello","Money","Love","Water","Sorry","I love you"]
+labels_1 = ["Home","No","Pray","Hungry","Family","Help","Time","Car","Yes","Hello","Money","Love","Water","Sorry","I love you"]
+labels_2 = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","Hold"]  
 
 # Stores the update gestures
 Input = []
 
+
 s = ""
 flag = True
-prev = "How are you"
+prev = "Welcome"
 language = "en"
 
 app=Flask(__name__)
 # camera=cv2.VideoCapture(0)
 
-def generate_frames():
+
+def fun1():
+    return Classifier("Model/Model_5/keras_model.h5", "Model/Model_5/labels.txt")
+def fun2():
+    return Classifier("Model/Alphabets/keras_model.h5", "Model/Alphabets/labels.txt")
+
+
+
+def generate_frames(classifier,labels):
     Input = []
     s = ""
     flag = True
@@ -65,15 +75,15 @@ def generate_frames():
 
         if hands:
             flag = True 
-
+ 
             hand = hands[0]
             x, y, w, h = hand['bbox']
             
             # imgWhite = np.ones((imgSize, imgSize, 3), np.uint8) * 255
             # imgCrop = img[y-offset:y+h+offset, x-offset:x+w+offset]
             # imgCropShape = imgCrop.shape
-
-            # aspectRatio = h/w
+  
+            # aspectRatio = h/w  
 
             prediction,index = classifier.getPrediction(img,draw=False)
 
@@ -83,7 +93,7 @@ def generate_frames():
             # cv2.rectangle(img, (x - offset, y - offset - 70), (x - offset + 400, y - offset + 60 - 50), (0, 255, 0),
             #           cv2.FILLED)            
             cv2.putText(img, labels[index], (x, y - 30), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 0, 0), 2)
-            # cv2.rectangle(img, (x - offset, y - offset), (x + w + offset, y + h + offset), (0, 255, 0), 4)
+            # cv2.rectangle(img, (x - offset, y - offset),   (x + w + offset, y + h + offset), (0, 255, 0), 4)
         else:
             if Input!=[]:
                 if flag:
@@ -100,23 +110,6 @@ def generate_frames():
 
                     Input = []
                     prev = s 
-
-                    # tts = gTTS(text=s,lang='en')
-                    # audio_buffer = BytesIO()
-                    # tts.write_to_fp(audio_buffer)
-                    # audio_buffer.seek(0)
-                    # pygame.mixer.init()
-                    # pygame.mixer.music.load(audio_buffer)
-                    # pygame.mixer.music.play()
-
-                    # while pygame.mixer.music.get_busy():
-                    #     time.sleep(1)
-
-
-                    
-
-
-
 
         # cv2.putText(img,prev,(10,30),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),2)
         # change_prev(prev)
@@ -141,7 +134,7 @@ def generate_frames():
 
 
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])  
 def index():
     # global prev
 
@@ -177,13 +170,34 @@ def index():
 
 @app.route('/video')
 def video():
-    return Response(generate_frames(),mimetype='multipart/x-mixed-replace; boundary=frame')
+    classifier = fun1()
+    labels = labels_1
+    return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/video2')
+def video2():
+    classifier = fun2()
+    labels = labels_2
+    return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/video/video2')
+def video11():
+    classifier = fun1()
+    labels = labels_1
+    return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/video/video')
+def video22():
+    classifier = fun2()
+    labels = labels_2
+    return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 
 data = {
     'description': "Meaningful description displays here after detection of gestures...",
     'language'  : "en"
 }
-
+ 
 @app.route('/update', methods=['POST'])
 def update_data():
     # Increment count
@@ -212,7 +226,7 @@ def update_data():
     return jsonify(data)
 
 @app.route('/listen', methods=['POST'])
-def listen():
+def listen():  
     tts = gTTS(text=prev,lang=language)
     audio_buffer = BytesIO()
     tts.write_to_fp(audio_buffer)
