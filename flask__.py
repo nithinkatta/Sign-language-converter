@@ -24,8 +24,9 @@ genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
 #opencv
-cap = cv2.VideoCapture(0)
-detector = HandDetector(maxHands=2)
+cap = cv2.VideoCapture('http://192.168.137.102:8080/video')
+# cap = cv2.VideoCapture(0)
+detector = HandDetector(maxHands=2) 
 
 # loaded_model = tf.keras.models.load_model('model.h5')
 classifier = Classifier("Model/Model_5/keras_model.h5", "Model/Model_5/labels.txt")
@@ -42,7 +43,6 @@ labels_2 = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q",
 # Stores the update gestures
 Input = []
 
-
 s = ""
 flag = True
 prev = "Welcome"
@@ -51,13 +51,10 @@ language = "en"
 app=Flask(__name__)
 # camera=cv2.VideoCapture(0)
 
-
 def fun1():
     return Classifier("Model/Model_5/keras_model.h5", "Model/Model_5/labels.txt")
 def fun2():
     return Classifier("Model/Alphabets/keras_model.h5", "Model/Alphabets/labels.txt")
-
-
 
 def generate_frames(classifier,labels):
     Input = []
@@ -70,9 +67,9 @@ def generate_frames(classifier,labels):
         ## read the camera frame
         success,img=cap.read()
 
-        imgOutput = img.copy()
+        # imgOutput = img.copy()
         hands,img = detector.findHands(img,False)
-
+        img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
         if hands:
             flag = True 
  
@@ -86,8 +83,8 @@ def generate_frames(classifier,labels):
             # aspectRatio = h/w  
 
             prediction,index = classifier.getPrediction(img,draw=False)
-
-            if labels[-1] != labels[index]:
+ 
+            if labels[-1] != labels[index]: 
                 Input.append(labels[index])
             
             # cv2.rectangle(img, (x - offset, y - offset - 70), (x - offset + 400, y - offset + 60 - 50), (0, 255, 0),
@@ -117,22 +114,17 @@ def generate_frames(classifier,labels):
         #     break
         # else:
         ret,buffer=cv2.imencode('.jpg',img)
-        img=buffer.tobytes()
+        img=buffer.tobytes() 
 
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + img + b'\r\n')
-
+  
 # def change_prev(prev):
 
 # def translate_text(text, target_language='en'):
 #     translator = Translator()
 #     translation = translator.translate(text, dest=target_language)
 #     return translation.text
-
-
-
-
-
 
 @app.route('/', methods=['GET','POST'])  
 def index():
@@ -166,18 +158,20 @@ def index():
     pygame.mixer.music.load(audio_buffer)
     pygame.mixer.music.play()
     # return jsonify(data)
-    return render_template('index.html',data=data,language = language)
+    return render_template('index2.html',data=data,language = language)
 
 @app.route('/video')
 def video():
     classifier = fun1()
     labels = labels_1
     return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
+
 @app.route('/video2')
 def video2():
     classifier = fun2()
     labels = labels_2
     return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
+
 @app.route('/video/video2')
 def video11():
     classifier = fun1()
@@ -190,8 +184,6 @@ def video22():
     classifier = fun2()
     labels = labels_2
     return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
 
 data = {
     'description': "Meaningful description displays here after detection of gestures...",
@@ -230,12 +222,13 @@ def listen():
     tts = gTTS(text=prev,lang=language)
     audio_buffer = BytesIO()
     tts.write_to_fp(audio_buffer)
-    audio_buffer.seek(0)
+    audio_buffer.seek(0) 
     pygame.mixer.init()
     pygame.mixer.music.load(audio_buffer)
     pygame.mixer.music.play()
     # return jsonify(data)
-    return render_template('index.html',data=data,language = language)
+    return render_template('index2.html',data=data,language = language)
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=True,host='10.45.82.30', port=8080) # for mobile view
+    # app.run(debug=True) # for desktop view  

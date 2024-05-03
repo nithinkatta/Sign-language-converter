@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+      /* General styles */
+      * {
+        user-select: none;
+      }
+      
+      body {
+        background-color: #E8EAED;                
+        font-family: 'Google Sans', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background-color: #1A73E8;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px 0px #1A73E8;
+      }
+      
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+      
+      nav ul li {
+        margin-right: 20px;
+      }
+      
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+      }
+      
+      /* Main content */
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 10px;
+      }
+      
+      .window, .desp, .lang-pref {
+        background-color: white;
+        font-family: 'Google Sans', Helvetica, Arial, sans-serif;
+        border-radius: 10px;
+        box-shadow: 5px 10px 20px 0px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      
+      .window {
+        width: 100%;
+      }
+      
+      .desp, .lang-pref {
+        width: 100%;
+        max-width: 500px;
+        padding: 10px;
+      }
+      
+      /* Buttons */
+      .btn {
+        padding: 10px;
+        margin: 10px;
+        background-color: #1A73E8;
+        color: white;
+        border-radius: 10px;
+        border: none;
+      }
+      
+      /* Dropdown */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      .dropdown-content a:hover {
+        background-color: #ddd;
+      }
+      
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      .dropdown:hover .dropbtn {
+        background-color: #1A73E8;
+      }
+      
+      /* Media Queries */
+      @media screen and (max-width: 600px) {
+        nav ul li {
+          margin-right: 10px;
+        }
+        
+        .main-container {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  
+  <body>
+    <nav>
+      <h1>Live streaming</h1>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a>About</a></li>
+        <li><a>Contact</a></li>
+      </ul>
+    </nav>
+    
+    <div class="main-container">
+      <div class="heading">
+        <h1>Window</h1>
+    </div>
+    
+    <div class="dropdown">
+        <button class="dropbtn">Dropdown</button>
+        <div class="dropdown-content" id="dropdownContent">
+            <button data-url="/video">Words</button>
+            <button data-url="/video2">ASL</button>
+        </div>
+    </div>
+    
+    <div class="window" style="max-width: 500px; height: 300px;">
+        <img id="videoElement" src="{{ url_for('video') }}" width="100%" alt="Page refresh"/>
+    </div>
+    <h1>Description</h1>
+      
+      <div class="desp">
+        <p><span id="description">{{ data.description }}</span></p>
+      </div>
+      
+      <div class="lang-pref">
+        <form action="/" method="post">
+          <h2><label style="color: #2076ff;" for="radio">Language Preference</label><br></h2>
+          <input type="radio" name="radio" value="en" {% if language == 'en' %}checked{% endif %}> English<br>
+          <input type="radio" name="radio" value="hi" {% if language == 'hi' %}checked{% endif %}> Hindi<br>
+          <input type="radio" name="radio" value="te" {% if language == 'te' %}checked{% endif %}> Telugu<br>
+          <input type="radio" name="radio" value="ko" {% if language == 'ko' %}checked{% endif %}> Korean<br>
+          <input class="btn" type="submit" value="Submit">
+        </form>
+      </div>
+      
+      <div style="display: flex;">
+        <form action="/listen" method="post">
+          <button class="btn" id="listenBtn">Listen</button>
+        </form>
+        <button class="btn" id="updateBtn">Generate</button>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        $('#updateBtn').click(function() {
+          $.ajax({
+            type: 'POST',
+            url: '/update',
+            success: function(response) {
+              $('#description').text(response.description);
+            },
+            error: function(error) {
+              console.log(error);
+            }
+          });
+        });
+        
+        document.addEventListener("DOMContentLoaded", function() {
+          var dropdownContent = document.getElementById('dropdownContent');
+          var videoElement = document.getElementById('videoElement');
+          
+          dropdownContent.addEventListener('click', function(event) {
+            if (event.target.tagName === 'BUTTON') {
+              var url = event.target.dataset.url;
+              videoElement.setAttribute('src', url);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
