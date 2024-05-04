@@ -14,7 +14,7 @@ The project uses Python, MediaPipe, OpenCV, and Gemini AI to develop a real-time
 - **Gemini**:We have used an API from Gemini to correct the sentences.(we have prompted for this api in Gemini) which enrichens our project.
  <p align="center"> <img src="VirtualConnect%208b1efe88061b4234946400cc0b8beed5/VirtualConnect_c5ea835e103249a3a7bf94e229d80a04Untitled_2.png" ></p>
 <li><b>gTTS</b>: A Python library which converts text to speech</li> 
-<li> <b>Teachable Machine</b>: Used in modeling the dataset.<p align="center">  <center><img src="VirtualConnect%208b1efe88061b4234946400cc0b8beed5/VirtualConnect_c5ea835e103249a3a7bf94e229d80a04Untitled_4.png" alt="f"  height="200px"/><p/>
+<li> <b>Teachable Machine</b>: Used in modeling the dataset.<p align="center"> <img src="VirtualConnect%208b1efe88061b4234946400cc0b8beed5/VirtualConnect_c5ea835e103249a3a7bf94e229d80a04Untitled_4.png" alt="f"  height="200px"/><p/>
  
   
 
