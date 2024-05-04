@@ -11,33 +11,27 @@
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
         <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="assets/css/styles2.css">
         <link rel="stylesheet" href="assets/css/styles.css">
-
-        <title>Sign Languauge Converter </title>
         
-            <style>
-      
-        body {
-              /* Default light mode styles */
-              .video-container {
-            position: relative;
-            width: 640px; /* Adjust width as needed */
-            height: 360px; /* Adjust height as needed */
-            margin: auto;
-            margin-top: 50px;
-        }
-
-        /* Styling for the video */
+        <title>Sign Language Converter</title>
+        <style>
         #myVideo {
-            width: 100%;
+            width: 70%;
             height: 100%;
             object-fit: cover; /* Ensure video fills the container */
+            display: block;
+            margin: auto;
+            margin-top: 30px;
         }
         .dropdown {
-            position: relative;
+            margin-top: 50px;
             width: 250px;
         }
-
+        .home__subtitle{
+            color:#1f2937 ;
+            
+        }
         /* Style for the select element */
         .dropdown select {
             appearance: none; /* Remove default styling */
@@ -60,12 +54,17 @@
             transform: translateY(-50%);
             pointer-events: none; /* Allow click-through on the arrow */
         }
+        .window{
+            background-color: white;
+            box-shadow: 5px 10px 20px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
 
         /* Style for drop-down options */
         .dropdown select option {
             font-size: 16px;
         }
-
+            
         #playButton {
             position: absolute;
             top: 50%;
@@ -80,367 +79,344 @@
             font-size: 24px;
             cursor: pointer;
         }
-            background-color: white;
-            color: #000000;
-            .home__subtitle{
-                color:#1f2937 ;}
-                
-            .home__title{
-                color:#1f2937 ;}
-                .scroll-header {
-                background-color:#1A73E8;
-                /* background-color: #;#E8EAED */
-                        }  
-             .nav__link{
-                color:white;
-                font-weight: 100
-                
-                ;
-            }
-                .nav__link:hover{
-                    color: white;
-                    
-                }           
+            .home__titles {
+    display: flex; /* or display: grid; */
+    align-content: space-between 10px; /* for vertical alignment */
+}
 
-            .discount__container{
-                background-color: #1A73E8;
-            }
-            .discount__description{
-                color: white;
-            }
-            
-           
-        }
-        /* Dark mode styles */
-        body.dark-mode {
-            background-color: #1f2937;
-            color: #E8EAED;
-            .home__subtitle{
-                color:white ;}
-            .home__title{
-                color: var(--text-gradient);
-            }
-            .scroll-header {
-                background-color: #1f2937;
-            }
-            .section__title-gradient {
-                background: #E8EAED;
-                -webkit-background-clip: text;
-                background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-            .nav__link{
-                color:white;}
-                .nav__link:hover{
-                    color: orange;
-                }           
+    .home__titles {
+    flex: 1; /* or use grid-column or grid-row if using grid */
+    /* Adjust spacing, margins, etc. as needed */
+}
 
-            .discount__container{
-                background-color: black;
-            }
-           
+.home__image {
+    /* Adjust spacing, margins, etc. as needed */
+    float: right  !important;
+}
+    .home__title{
+            color:#1f2937 ;
+        
         }
-    </style>
+               
+
         </style>
     </head>
-    
     <body>
-        <header class="header" style="background-color: #1A73E8;" id="header">
-            <!-- <label for="modeSwitch" class="mt-4 flex items-center">
-                <span>Toggle Dark Mode:</span>
-                <input type="checkbox" id="modeSwitch" class="ml-2">
-            </label> -->
-            <!-- HTML content for the toggle switch -->
-<label for="modeSwitch" class="switch mt-4">
-    <input type="checkbox" id="modeSwitch" class="hidden">
-    <div class="slider round"></div>
-</label>
-
-
-            <!-- Rest of the header content -->
-        
-    
         <!--=============== HEADER ===============-->
-       
-            <nav class="nav container" >
-                <!-- <a href="#" class="nav__logo">
-                    <img src="assets/img/logo.png" width="200px" class=img1 alt="">
-                </a> -->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    <img src="assets/img/logo.png" alt="">
+                </a>
 
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
-                        <li class="nav__item">
-                            <a href="#home" class="nav__link active-link">Home</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#whoamI" class="nav__link">Who am I?</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#tutorial" class="nav__link">Tutorial</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#run" class="nav__link">Run</a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#dictonary" class="nav__link">Dictonary</a>
-                        </li>
+                        <ul class="nav__list">
+                            <li class="nav__item">
+                                <a href="#home" class="nav__link active-link">Home</a>
+                            </li>
+                            
+                            <li class="nav__item">
+                                <a href="#tutorial" class="nav__link">Tutorial</a>
+                            </li>
+                            <li class="nav__item">
+                                <a href="#run" class="nav__link">Run</a>
+                            </li>
+                            <li class="nav__item">
+                                <a href="#dictonary" class="nav__link">Dictonary</a>
+                            </li>
                     </ul>
 
                     <div class="nav__close" id="nav-close">
                         <i class="ri-close-line"></i>
                     </div>
-                    <i class="fa-solid fa-bars"></i>
-                    <!-- <div class="nav__toggle" id="nav-toggle">
-                
-                        
-                      </div> -->
                 </div>
 
-             
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-function-line"></i>
+                </div>
             </nav>
         </header>
 
-        <main class="main" >
+        <main class="main">
             <!--=============== HOME ===============-->
-            <div height="300px"><div class="home__data">
-              
             <section class="home section" id="home">
-                <div class="home__header">
-                    <h1 class="home__title">Dark Coder's</h1>
-                   <div height="20px"> </div>
-                    <h2 class="home__subtitle">Sign Language Converter</h2>
-                </div>
-                   
-                
-                
                 <div class="home__container container grid">
                    
-                    <div>
-                        <img src="https://media.tenor.com/qh6bhFrMGigAAAAj/marketing-branding.gif" alt="" class="home__img">
-                    </div>
-                    
-                    
-
+                    <div class="home__data">
+                        <div class="home__header">
+                            <div class="home__titles">
+                            <!-- <h1 class="home__title">Dark Coder's</h1> -->
+                           <h2 class="home__subtitle">Sign Language Converter</h2>
+                            
+                            </div>
+                            <div >
+                                <img src="https://media.tenor.com/qh6bhFrMGigAAAAj/marketing-branding.gif" alt="" class="image">
+                            </div>
+                            
+                        </div>
+                        <div class="home__container container grid">
+                   
+                            
                         <div class="home__footer">
-                            <!-- <h3 class="home__title-description">Overview</h3> -->
                             <p class="home__description"> Instantly translates sign language into text and speech with a camera, enabling seamless communication anywhere.
 
                             </p>
-                            <a href="#run" class="button button--flex">
-                                <span class="home__price">
-                                Get Started<br>
+                            <a href="#run" class="button button--flex ">
+                                <span class="home__val">
+                                Get Started
                                 </span>
                                 
                             </a>
                             <br>
-                            <span class="home__description">
-                                Want to know more about the application?<br> Click on Tutorial
-                            </span>
-                               
+                  
                         </div>
-                    </div>
+                    
                 </div>
             </section>
             
-        
-        
+           
 
-            <!--=============== SPECS ===============-->
-            <section class="specs section grid" id="whoamI">
-                <h2 class="section__title section__title-gradient">Who am I?</h2>
-                <p class="home__price1">Click to watch a tutorial to make sure you better understand our application</p>
-                <div class="video-container">
-                <video id="myVideo" width="640" height="360" controls>
+            <!--=============== tutor ===============-->
+            <section class="tutor section grid" id="tutorial">
+                <h2 class="section__title section__title-gradient">Tutorial</h2>
+                <center>
+                <p class="home__val1"> Need a hand? Watch our quick tutorial!</p>
+            </center>
+                   <div class="video-container">
+                <video id="myVideo" width="300rem" height="360" controls>
                     <source src="video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
+               
+            </section>
+
+           
+
             
-                <!-- Play button
-                <button id="playButton">&#9658;</button> -->
-            </div>     
-                       
-            </div>
-                </div>
-            </section>
-            <section class="specs section grid" id="tutorial">
-                <h2 class="section__title section__title-gradient">Here's how to use me:</h2>
-                
-            </section>
-
-            <!--=============== CASE ===============-->
-            <section class="case section grid" id="run">
+            <section class="runn section grid" id="run">
                 <h2 class="section__title section__title-gradient">Run</h2>
-
-                <div class="case__container container grid">
-                    <div class="frame">
-                       
-                            <a href="http://127.0.0.1:5000/" class="button button--flex">
-                                <span class="home__price" >
-                                    Try Now
-                                <br>
+   
+              
+                <a href="#run" class="button">
+                                <span class="home__val">
+                                Try Now<br>
                                 </span>
                             </a>
                     </div>
-                    <div class="myrun">
-                    <div class="discount__container">
-                        <div class="discount__animate">
-                            <h2 class="discount__title">Here is your description </h2>
-                            <p class="discount__description">My description</p>
-                            
-                        </div>
-    
-                        
-                    </div>
-                    <div class="dropdown">
-                        <select>
-                            <option value="" selected disabled>Select Language</option>
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
-                            <option value="fr">French</option>
-                            <option value="de">German</option>
-                            <option value="it">Italian</option>
-                            <option value="pt">Portuguese</option>
-                            <option value="ru">Russian</option>
-                            <option value="zh">Chinese (Simplified)</option>
-                            <option value="ja">Japanese</option>
-                            <option value="ko">Korean</option>
-                            <option value="ar">Arabic</option>
-                            <option value="hi">Hindi</option>
-                            <option value="bn">Bengali</option>
-                            <option value="ur">Urdu</option>
-                            <option value="vi">Vietnamese</option>
-                            <option value="id">Indonesian</option>
-                            <option value="th">Thai</option>
-                            <option value="tr">Turkish</option>
-                            <option value="nl">Dutch</option>
-                            <option value="pl">Polish</option>
-                            <option value="sv">Swedish</option>
-                            <option value="fi">Finnish</option>
-                            <option value="no">Norwegian</option>
-                            <option value="da">Danish</option>
-                            <option value="cs">Czech</option>
-                            <option value="hu">Hungarian</option>
-                            <option value="el">Greek</option>
-                            <option value="he">Hebrew</option>
-                            <option value="ro">Romanian</option>
-                            <option value="sk">Slovak</option>
-                            <option value="sl">Slovenian</option>
-                            <option value="bg">Bulgarian</option>
-                            <option value="hr">Croatian</option>
-                            <option value="lt">Lithuanian</option>
-                            <option value="lv">Latvian</option>
-                            <option value="et">Estonian</option>
-                            <option value="sr">Serbian</option>
-                            <option value="uk">Ukrainian</option>
-                            <option value="sq">Albanian</option>
-                            <option value="mn">Mongolian</option>
-                            <option value="fa">Persian</option>
-                            <option value="sw">Swahili</option>
-                            <option value="am">Amharic</option>
-                            <option value="ne">Nepali</option>
-                            <option value="ta">Tamil</option>
-                            <option value="te">Telugu</option>
-                            <option value="ml">Malayalam</option>
-                            <option value="si">Sinhala</option>
-                            <option value="ka">Georgian</option>
-                            <option value="kk">Kazakh</option>
-                            <option value="uz">Uzbek</option>
-                            <option value="ky">Kyrgyz</option>
-                        </select>
-                    </div>
-                </div>
+                    
+                  
+                
             </section>
 
-            <!--=============== DISCOUNT ===============-->
-            <section class="discount section">
-              
-            </section>
-
-            <!--=============== PRODUCTS ===============-->
-            <section class="products section" id="dictonary">
-                <h2 class="section__title section__title-gradient products__line">
-                    Choose <br> Your Talk
+            <!--=============== items ===============-->
+            <section class="items section" id="dictonary">
+                <h2 class="section__title section__title-gradient items__line">
+                    Refer <br> Your Talk
                 </h2>
-
-                <div class="products__container container grid">
-                    <article class="products__card">
-                        <div class="products__content">
-                            <img src="assets/img/product1.png" alt="" class="pro">
+                <center>
+                <div class="items__content">
+                    <center>
+                        <p class="home__val2"> Alphabets</p>
+                    </center>
+                    <img src="assets/img/pro1.png" alt="" class="pro">
+                </div>
+            </center>
+            <center>
+                <p class="home__val2"> Words</p>
+            </center>
+                <div class="items__container container grid">
+                   
+                  
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/pro2.png" alt="" class="items__img">
     
-                            <h3 class="products__title">Alphabets</h3>
-                            <span class="products__price">ASL</span>
-    
-                           
-                        </div>
-                    </article>
-                    <article class="products__card">
-                        <div class="products__content">
-                            <img src="assets/img/product2.png" alt="" class="products__img">
-    
-                            <h3 class="products__title">Again</h3>
-                            <span class="products__price">ASL</span>
+                            <h3 class="items__title">Again</h3>
+                            <span class="items__val">ASL</span>
     
                             
                         </div>
                     </article>
-                    <article class="products__card">
-                        <div class="products__content">
-                            <img src="assets/img/product3.png" alt="" class="products__img">
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/pro3.png" alt="" class="items__img">
     
-                            <h3 class="products__title">Night Black</h3>
-                            <span class="products__price">ASL</span>
+                            <h3 class="items__title">Home</h3>
+                            <span class="items__val">ASL</span>
     
                            
                         </div>
                     </article>
-                    <article class="products__card">
-                        <div class="products__content">
-                            <img src="assets/img/product4.png" alt="" class="products__img">
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/pro4.png" alt="" class="items__img">
     
-                            <h3 class="products__title">Blue</h3>
-                            <span class="products__price">$249</span>
+                            <h3 class="items__title">Pray</h3>
+                            <span class="items__val">ASL</span>
     
                           
                         </div>
                     </article>
 
-                    
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/pro5.png" alt="" class="items__img">
+    
+                            <h3 class="items__title">No</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p1.png" alt="" class="items__img">
+    
+                            <h3 class="items__title">Hungry</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p2.png" alt="" class="items__img">
+    
+                            <h3 class="items__title">Family</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p3.jpeg" alt="" class="items__img">
+    
+                            <h3 class="items__title">Help</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p4.jpeg" alt="" class="items__img">
+    
+                            <h3 class="items__title">Time</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p5.jpeg" alt="" class="items__img">
+    
+                            <h3 class="items__title"> Car</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p6.jpeg" alt="" class="items__img">
+    
+                            <h3 class="items__title">Yes</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p7.png" alt="" class="items__img">
+    
+                            <h3 class="items__title">Hello</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p8.jpg" alt="" class="items__img">
+    
+                            <h3 class="items__title">Money</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>  
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p11.png" alt="" class="items__img">
+    
+                            <h3 class="items__title">I love you</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>  
+                    </article>   
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p12.png" alt="" class="items__img">
+    
+                            <h3 class="items__title">Water</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>  
+                    </article>   
+                    <article class="items__card">
+                        <div class="items__content">
+                            <img src="assets/img/p13.jpeg" alt="" class="items__img">
+    
+                            <h3 class="items__title">Sorry</h3>
+                            <span class="items__val">ASL</span>
+     
+                        </div>
+                    </article>              
+
+
+
                 </div>
+
             </section>
+            
+            
         </main>
 
         <!--=============== FOOTER ===============-->
-        <footer class="footer section">
-            <div class="footer__container container grid">
-                <a href="#" class="footer__logo">
-                    <img src="assets/img/logo.png" alt="">
-                </a>
-    
-               
-    
+        
+
         <!--=============== SCROLL UP ===============-->
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-s-line scrollup__icon"></i>
         </a>
-        <script>
-            const modeSwitch = document.getElementById('modeSwitch');
-            const body = document.body;
-    
-            modeSwitch.addEventListener('change', () => {
-                if (modeSwitch.checked) {
-                    // Switch to dark mode
-                    body.classList.add('dark-mode');
-                } else {
-                    // Switch to light mode
-                    body.classList.remove('dark-mode');
-                }
-            });
-        </script>
+        
         <!--=============== SCROLL REVEAL ===============-->
         <script src="https://unpkg.com/scrollreveal"></script>
-
+        <script>
+            $(document).ready(function() {
+                $('#updateBtn').click(function() {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/update',
+                        success: function(response) {
+                            $('#description').text(response.description);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                });
+            });
+            
+        </script>
+        
         <!--=============== MAIN JS ===============-->
         <script src="assets/js/main.js"></script>
-        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="jquery.flipster.min.js"></script>
+
+    <script>
+        $('.carousel').flipster({
+            style:'carousel',
+            spacing: -0.3,
+
+        });
+    </script>
     </body>
 </html>

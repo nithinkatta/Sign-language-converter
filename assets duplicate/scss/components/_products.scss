@@ -1,5 +1,5 @@
-/*=============== items ===============*/
-.items{
+/*=============== PRODUCTS ===============*/
+.products{
     &__line{
         line-height: 4rem;
     }
@@ -28,10 +28,10 @@
         align-self: flex-end;
     }
     &__title,
-    &__val{
+    &__price{
         font-size: var(--small-font-size);
     }
-    &__val{
+    &__price{
         font-weight: var(--font-semi-bold);
     }
     &__button{

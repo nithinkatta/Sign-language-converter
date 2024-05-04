@@ -1,7 +1,7 @@
 from flask import Flask,render_template,Response,jsonify, request
 # import cv2
 from googletrans import Translator
-import cv2
+import cv2 
 import pygame
 import tensorflow as tf
 from cvzone.HandTrackingModule import HandDetector
@@ -14,6 +14,8 @@ from io import BytesIO
 import time
 from gtts import gTTS 
 
+# from flask_socketio import SocketIO, emit
+
 #Translation
 from google.cloud import translate_v2 as translate 
 translate_client = translate.Client()
@@ -24,20 +26,21 @@ genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
 #opencv
-cap = cv2.VideoCapture('http://192.168.137.102:8080/video')
+cap = cv2.VideoCapture('http://192.0.0.4:8080/video')
 # cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=2) 
 
 # loaded_model = tf.keras.models.load_model('model.h5')
-classifier = Classifier("Model/Model_5/keras_model.h5", "Model/Model_5/labels.txt")
+classifier = Classifier("Model/Model_6/keras_model.h5", "Model/Model_6/labels.txt")
 offset = 20
 imgSize = 256
 counter = 0
 
 # labels = ["Hello", "I am fine", "No", "How", "Please", "Thank you", "Yes"]
-# labels = ["Hello","How", "Iamfine","You","","Hold"]   # model 3
+# labels_1 = ["Hello","How", "Iamfine","You","","Hold"]   # model 3
 # labels = ["Thank you","Argue","Hi"]  # model 4
-labels_1 = ["Home","No","Pray","Hungry","Family","Help","Time","Car","Yes","Hello","Money","Love","Water","Sorry","I love you"]
+# labels_1 = ["Home","No","Pray","Hungry","Family","Help","Time","Car","Yes","Hello","Money","Love","Water","Sorry","I love you"]
+labels_1 = ["Hi","How","You"]
 labels_2 = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","Hold"]  
 
 # Stores the update gestures
@@ -52,7 +55,7 @@ app=Flask(__name__)
 # camera=cv2.VideoCapture(0)
 
 def fun1():
-    return Classifier("Model/Model_5/keras_model.h5", "Model/Model_5/labels.txt")
+    return Classifier("Model/Model_6/keras_model.h5", "Model/Model_6/labels.txt")
 def fun2():
     return Classifier("Model/Alphabets/keras_model.h5", "Model/Alphabets/labels.txt")
 
@@ -68,8 +71,8 @@ def generate_frames(classifier,labels):
         success,img=cap.read()
 
         # imgOutput = img.copy()
-        hands,img = detector.findHands(img,False)
         img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+        hands,img = detector.findHands(img,False)
         if hands:
             flag = True 
  
@@ -85,10 +88,10 @@ def generate_frames(classifier,labels):
             prediction,index = classifier.getPrediction(img,draw=False)
  
             if labels[-1] != labels[index]: 
-                Input.append(labels[index])
+                Input.append(labels[index]) 
             
-            # cv2.rectangle(img, (x - offset, y - offset - 70), (x - offset + 400, y - offset + 60 - 50), (0, 255, 0),
-            #           cv2.FILLED)            
+            cv2.rectangle(img, (x - offset, y - offset - 70), (x - offset + 400, y - offset + 60 - 50), (0, 255, 0),
+                      cv2.FILLED)            
             cv2.putText(img, labels[index], (x, y - 30), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 0, 0), 2)
             # cv2.rectangle(img, (x - offset, y - offset),   (x + w + offset, y + h + offset), (0, 255, 0), 4)
         else:
@@ -222,6 +225,11 @@ def listen():
     tts = gTTS(text=prev,lang=language)
     audio_buffer = BytesIO()
     tts.write_to_fp(audio_buffer)
+
+    # audio_path = 'audio.mp3'
+    # tts.save(audio_path)
+    # socketio.emit('audio', {'audio': audio_path},broadcast=True)
+
     audio_buffer.seek(0) 
     pygame.mixer.init()
     pygame.mixer.music.load(audio_buffer)
@@ -230,5 +238,5 @@ def listen():
     return render_template('index2.html',data=data,language = language)
 
 if __name__=="__main__":
-    app.run(debug=True,host='10.45.82.30', port=8080) # for mobile view
+    app.run(debug=True,host='192.168.145.140', port=8080) # for mobile view
     # app.run(debug=True) # for desktop view  

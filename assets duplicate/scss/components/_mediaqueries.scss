@@ -27,11 +27,11 @@
         }
     }
 
-    .tutor__img{
+    .specs__img{
         width: 200px;
     }
 
-    .runn{
+    .case{
         &__container{
             grid-template-columns: .6fr 1fr;
         }
@@ -45,7 +45,7 @@
         }
     }
 
-    .items__container{
+    .products__container{
         grid-template-columns: 142px;
         justify-content: center;
     }
@@ -66,7 +66,7 @@
         }
     }
 
-    .tutor{
+    .specs{
         &__img{
             position: initial;
         }
@@ -77,7 +77,7 @@
         }
     }
 
-    .runn{
+    .case{
         &__img{
             position: initial;
         }
@@ -104,7 +104,7 @@
         }
     }
 
-    .items{
+    .products{
         &__container{
             grid-template-columns: repeat(3, 142px);
             justify-content: center;
@@ -156,11 +156,11 @@
         }
     }
 
-    .tutor__img{
+    .specs__img{
         width: 300px;
     }
 
-    .runn{
+    .case{
         &__container{
             column-gap: 5rem;
         }
@@ -188,7 +188,7 @@
         }
     }
 
-    .items{
+    .products{
         &__container{
             grid-template-columns: repeat(3, 162px);
             gap: 6rem 3rem;
