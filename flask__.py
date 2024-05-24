@@ -26,8 +26,8 @@ genai.configure(api_key=GOOGLE_API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
 #opencv
-cap = cv2.VideoCapture('http://192.0.0.4:8080/video')
-# cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture('http://192.0.0.4:8080/video')  # mobile camera
+cap = cv2.VideoCapture(0)
 detector = HandDetector(maxHands=2) 
 
 # loaded_model = tf.keras.models.load_model('model.h5')
@@ -41,7 +41,7 @@ counter = 0
 # labels = ["Thank you","Argue","Hi"]  # model 4
 # labels_1 = ["Home","No","Pray","Hungry","Family","Help","Time","Car","Yes","Hello","Money","Love","Water","Sorry","I love you"]
 labels_1 = ["Hi","How","You"]
-labels_2 = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","Hold"]  
+labels_2 = ["A","F","R","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","Hold"]  
 
 # Stores the update gestures
 Input = []
@@ -49,15 +49,15 @@ Input = []
 s = ""
 flag = True
 prev = "Welcome"
-language = "en"
-
+language = "en" 
+ 
 app=Flask(__name__)
 # camera=cv2.VideoCapture(0)
 
 def fun1():
     return Classifier("Model/Model_6/keras_model.h5", "Model/Model_6/labels.txt")
 def fun2():
-    return Classifier("Model/Alphabets/keras_model.h5", "Model/Alphabets/labels.txt")
+    return Classifier("Model/Alphabets_2/keras_model.h5", "Model/Alphabets_2/labels.txt")
 
 def generate_frames(classifier,labels):
     Input = []
@@ -71,8 +71,8 @@ def generate_frames(classifier,labels):
         success,img=cap.read()
 
         # imgOutput = img.copy()
-        img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-        hands,img = detector.findHands(img,False)
+        # img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)# mobile view
+        hands,img = detector.findHands(img,False)  
         if hands:
             flag = True 
  
@@ -103,7 +103,7 @@ def generate_frames(classifier,labels):
                             s+=i+" "
                     print(s) 
                     if s!=" ":
-                        response = model.generate_content("Correct the sentence without explanation : "+s)
+                        response = model.generate_content("Correct the sentence without explanation or if it is correct just display the same : "+s)
                         print(response.text)
                     s = response.text
                     flag = False 
@@ -121,9 +121,9 @@ def generate_frames(classifier,labels):
 
         yield(b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + img + b'\r\n')
-  
+   
 # def change_prev(prev):
-
+ 
 # def translate_text(text, target_language='en'):
 #     translator = Translator()
 #     translation = translator.translate(text, dest=target_language)
@@ -131,11 +131,11 @@ def generate_frames(classifier,labels):
 
 @app.route('/', methods=['GET','POST'])  
 def index():
-    # global prev
+    # global prev 
 
     global language
     # selected_values = []
-    if request.method == 'POST':
+    if request.method == 'POST': 
         language = request.form.get('radio')
         # language = selected_values[-1]
     global prev
@@ -149,7 +149,7 @@ def index():
         prev = translation['translatedText']
         language = data['language']
     else:
-        data['description'] = prev
+        data['description'] = prev 
         prev = data['description']
 
 
@@ -158,14 +158,14 @@ def index():
     tts.write_to_fp(audio_buffer)
     audio_buffer.seek(0)
     pygame.mixer.init()
-    pygame.mixer.music.load(audio_buffer)
+    pygame.mixer.music.load(audio_buffer)  
     pygame.mixer.music.play()
     # return jsonify(data)
-    return render_template('index2.html',data=data,language = language)
+    return render_template('index.html',data=data,language = language)
 
 @app.route('/video')
 def video():
-    classifier = fun1()
+    classifier = fun1() 
     labels = labels_1
     return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -182,7 +182,7 @@ def video11():
     return Response(generate_frames(classifier,labels),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route('/video/video')
+@app.route('/video/video') 
 def video22():
     classifier = fun2()
     labels = labels_2
@@ -210,7 +210,6 @@ def update_data():
         data['description'] = prev
         prev = data['description']
 
-
     # tts = gTTS(text=prev,lang=language)
     # audio_buffer = BytesIO()
     # tts.write_to_fp(audio_buffer)
@@ -235,8 +234,8 @@ def listen():
     pygame.mixer.music.load(audio_buffer)
     pygame.mixer.music.play()
     # return jsonify(data)
-    return render_template('index2.html',data=data,language = language)
+    return render_template('index.html',data=data,language = language)
 
 if __name__=="__main__":
-    app.run(debug=True,host='192.168.145.140', port=8080) # for mobile view
-    # app.run(debug=True) # for desktop view  
+    # app.run(debug=True,host='192.168.145.140', port=8080) # for mobile view
+    app.run(debug=True) # for desktop view  

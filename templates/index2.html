@@ -145,20 +145,30 @@
         <h1>Window</h1>
     </div>
     
-    <div class="dropdown">
+    <!-- <div class="dropdown">
         <button class="dropbtn">Dropdown</button>
         <div class="dropdown-content" id="dropdownContent">
             <button data-url="/video">Words</button>
             <button data-url="/video2">ASL</button>
         </div>
+    </div> -->
+    <div style="text-align: right !important; width: 100%;">
+      <div class="dropdown" style="text-align: left !important;">
+        <button class="dropbtn">Select</button>
+        <div class="dropdown-content" id="dropdownContent">
+          <button style="padding: 3px; background-color: cornflowerblue; margin-left: 5px; margin-top: 2px; width: 60px;" data-url="/video">Words</button><br>
+          <button style="padding: 3px; background-color: cornflowerblue; margin-top: 2px; margin-left: 5px; width: 60px;" data-url="/video2">ASL</button>
+        </div>
+      </div>
     </div>
     
-    <div class="window" style="max-width: 500px; height: 300px;">
+    <div class="window" style="width: 400px; height: 300px;">
         <img id="videoElement" src="{{ url_for('video') }}" width="100%" height="400px" alt="Page refresh"/>
     </div>
-    <h1>Description</h1>
+    
       
       <div class="desp">
+        <h2><label style="color: #2076ff;" for="radio">AI Generated</label><br></h2>
         <p><span id="description">{{ data.description }}</span></p>
       </div>
       
@@ -195,7 +205,7 @@
             }
           });
         });
-        
+      });
         document.addEventListener("DOMContentLoaded", function() {
           var dropdownContent = document.getElementById('dropdownContent');
           var videoElement = document.getElementById('videoElement');
@@ -207,7 +217,7 @@
             }
           });
         });
-      });
+      
     </script>
   </body>
 </html>
